@@ -112,7 +112,7 @@ class OriginalMultiGridReconstruction(BaseReconstruction):
             self._vcycle(v1h, f1h)
         return v1h
 
-    def run(self, jacobi_damping_factor=0.4, jacobi_niterations=5, vcycle_niterations=6):
+    def run(self, jacobi_damping_factor=0.4, jacobi_niterations=10, vcycle_niterations=6):
         """
         Run reconstruction, i.e. set displacement potential attr:`mesh_phi` from :attr:`mesh_delta`.
         Default parameter values are the same as in Martin's code.
@@ -122,7 +122,7 @@ class OriginalMultiGridReconstruction(BaseReconstruction):
         jacobi_damping_factor : float, default=0.4
             Damping factor for Jacobi iterations.
 
-        jacobi_niterations : int, default=5
+        jacobi_niterations : int, default=10
             Number of Jacobi iterations.
 
         vcycle_niterations : int, default=6

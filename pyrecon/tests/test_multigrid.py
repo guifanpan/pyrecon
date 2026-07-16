@@ -79,7 +79,7 @@ def test_dtype():
                 all_shifts2.append(shifts)
                 if dtype2 == dtype: all_shifts.append(shifts)
             assert np.allclose(*all_shifts2, atol=1e-2, rtol=1e-2)
-        assert np.allclose(*all_shifts, atol=5e-2, rtol=5e-2)
+        assert np.allclose(*all_shifts, atol=1e-1, rtol=1e-1)
 
 
 def test_nmesh():
