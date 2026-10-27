@@ -18,11 +18,8 @@ class MultiGridReconstruction2LPT(BaseSecondOrderReconstruction, OriginalMultiGr
         """Run first-order multigrid reconstruction (see :meth:`OriginalMultiGridReconstruction.run`), then compute second-order potential :attr:`mesh_phi2`."""
         super(MultiGridReconstruction2LPT, self).run(*args, **kwargs)
         if self.mpicomm.rank == 0: self.log_info('Computing second-order displacement potential.')
-        # Fields returned by _multigrid have their .value rebound to a new array, which FFTs do not see: copy into a fresh field
-        phi = self.pm.create(type='real')
-        phi.value[...] = self.mesh_phi.value
         # read_finite_difference_cic returns +grad, hence mesh_phi2 = lap^{-1} S to get grad lap^{-1} S
-        self.mesh_phi2 = inverse_laplacian(tidal_source(phi, is_potential=True))
+        self.mesh_phi2 = inverse_laplacian(tidal_source(self.mesh_phi, is_potential=True))
 
     @format_positions_wrapper(return_input_type=False)
     def read_shifts(self, positions, field='disp+rsd'):

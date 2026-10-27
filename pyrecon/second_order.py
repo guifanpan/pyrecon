@@ -69,7 +69,7 @@ def tidal_source(field, is_potential=False):
     toret = field.pm.create(type='real', value=0.)
     for iaxis in range(ndim):
         for jaxis in range(iaxis + 1, ndim):
-            toret[...] += hessian[iaxis, iaxis] * hessian[jaxis, jaxis] - hessian[iaxis, jaxis]**2
+            toret.value[...] += hessian[iaxis, iaxis].value * hessian[jaxis, jaxis].value - hessian[iaxis, jaxis].value**2
     return toret
 
 

@@ -106,7 +106,7 @@ def jacobi(v, f, np.ndarray[double, ndim=1, mode='c'] boxcenter, double beta, do
             _jacobi_float(<float*> bv.data, <float*> bf.data, &nmesh[0], bv.shape[0], offsetx, &boxsize[0], &boxcenter[0], beta, damping_factor, plos)
         else:
             _jacobi_double(<double*> bv.data, <double*> bf.data, &nmesh[0], bv.shape[0], offsetx, &boxsize[0], &boxcenter[0], beta, damping_factor, plos)
-        v.value = bv[1:-1]
+        v.value[...] = bv[1:-1]
     return v
 
 
@@ -131,7 +131,7 @@ def residual(v, f, np.ndarray[double, ndim=1, mode='c'] boxcenter, double beta, 
         _residual_double(<double*> bv.data, <double*> bf.data, <double*> br.data, &nmesh[0], bv.shape[0], offsetx, &boxsize[0], &boxcenter[0], beta, plos)
 
     toret = v.pm.create(type='real')
-    toret.value = br[1:-1]
+    toret.value[...] = br[1:-1]
     return toret
 
 
@@ -150,7 +150,7 @@ def prolong(v2h):
     else:
         _prolong_double(<double*> bv2h.data, <double*> bv1h.data, &nmesh[0], v1h.shape[0], offsetx)
 
-    v1h.value = bv1h
+    v1h.value[...] = bv1h
     return v1h
 
 
@@ -168,7 +168,7 @@ def reduce(v1h):
     else:
         _reduce_double(<double*> bv1h.data, <double*> bv2h.data, &nmesh[0], v2h.shape[0], 1)
 
-    v2h.value = bv2h
+    v2h.value[...] = bv2h
     return v2h
 
 

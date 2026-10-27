@@ -21,7 +21,7 @@ class FourierBox(object):
         return np.fft.rfftn(x)
 
     def c2r(self, x):
-        return np.fft.irfftn(x, s=(self.nmesh,) * 3)
+        return np.fft.irfftn(x, s=(self.nmesh,) * 3, axes=(0, 1, 2))
 
     def gaussian_field(self, kcut, sigma, seed=42):
         rng = np.random.default_rng(seed)
